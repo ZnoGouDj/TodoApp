@@ -12,22 +12,28 @@ export default class AddTodoPanel extends Component {
         });
     }
 
+    onSubmit = (e) => {
+        e.preventDefault()
+        this.props.onAddItem(this.state.inputValue);
+        this.setState({
+            inputValue: ''
+        })
+    }
+
     render() {
-        const { onAddItem } = this.props;
         return (
-            <div className="d-flex top-panel">
+            <form className="d-flex top-panel"
+                onSubmit={this.onSubmit}>
                 <input
                     type="text"
                     placeholder="new todo"
                     className="form-control search-input"
                     value={this.state.inputValue}
                     onChange={e => this.updateInputValue(e)} />
-                <button
-                    className="btn btn-outline-secondary"
-                    onClick={() => onAddItem(this.state.inputValue)}>
+                <button className="btn btn-outline-secondary">
                     Add
                 </button>
-            </div>
+            </form>
         )
     }
 }
